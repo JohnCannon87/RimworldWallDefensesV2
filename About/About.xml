@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>WallDefensesV2</name>
+	<author>Arcjc007</author>
+	<packageId>Arcjc007.WallDefensesV2</packageId>
+	<supportedVersions>
+		<li>1.6</li>
+	</supportedVersions>
+	<description><![CDATA[Adds a Wall Mountable Shield and Wall Mounted AA Turret to the game, requires my other mod Wall Stuff to work.
+		Wall Shield - Wall mounted shield that produces a square/rectangular barrier that destroys any enemy bullets or mortar shells that hit.
+		AA Turret - Turret that only targets inbound Drop Pods, Ship Chunks, Defoliator Ships and Psychic Drone Ships
+
+		Configurable Mod Settings:
+		Wall Shield power usage (scales with the size defended)
+		AA Turret range, reload speed and ammo count (i.e. how many targets can be destroyed before it needs to reload)
+	]]>
+	</description>
+</ModMetaData>

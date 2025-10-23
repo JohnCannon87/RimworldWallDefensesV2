@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+    <ThingDef Name="LaserGrid">
+        <defName>LaserGrid</defName>
+        <label>Laser Grid</label>
+        <thingClass>Building</thingClass>
+        <description>A collection of lasers to prevent passage, can be fired through however by accurate shooters.</description>
+        <category>Building</category>
+        <selectable>false</selectable>
+        <drawerType>MapMeshAndRealTime</drawerType>
+        <scatterableOnMapGen>false</scatterableOnMapGen>
+        <graphicData>
+            <texPath>LaserBarrier/LaserBarrier</texPath>
+            <graphicClass>Graphic_Multi</graphicClass>
+        </graphicData>
+        <altitudeLayer>Building</altitudeLayer>
+        <passability>Impassable</passability>
+    	<fillPercent>0.80</fillPercent>
+        <coversFloor>false</coversFloor>
+        <neverMultiSelect>true</neverMultiSelect>
+        <statBases>
+            <Flammability>0</Flammability>
+            <MaxHitPoints>1000000</MaxHitPoints>
+        </statBases>
+        <building>
+            <isInert>true</isInert>
+            <canBuildNonEdificesUnder>true</canBuildNonEdificesUnder>
+            <deconstructible>false</deconstructible>
+        </building>
+        <comps>
+            <li Class="CompProperties_Glower">
+                <glowRadius>6</glowRadius>
+                <glowColor>(0,98,137,0)</glowColor>
+                <colorPickerEnabled>false</colorPickerEnabled>
+                <darklightToggle>false</darklightToggle>
+            </li>
+        </comps>
+        <rotatable>true</rotatable>
+        <clearBuildingArea>false</clearBuildingArea>
+    </ThingDef>
+
+    <ThingDef Name="LaserGridBase" ParentName="WallBuildingBase" Abstract="True">
+        <statBases>
+            <WorkToBuild>3000</WorkToBuild>
+            <MaxHitPoints>1000</MaxHitPoints>
+            <Flammability>1.0</Flammability>
+            <Mass>35</Mass>
+        </statBases>
+        <thingCategories>
+            <li>BuildingsSecurity</li>
+        </thingCategories>
+        <researchPrerequisites>
+            <li>ShieldBelt</li>
+        </researchPrerequisites>
+        <drawOffscreen>true</drawOffscreen>
+        <seeThroughFog>true</seeThroughFog>
+        <drawerType>MapMeshAndRealTime</drawerType>
+        <designationCategory>Security</designationCategory>
+        <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+        <minifiedDef>MinifiedThing</minifiedDef>
+    </ThingDef>
+
+    <ThingDef ParentName="LaserGridBase">
+        <defName>LaserGridEmitter</defName>
+        <label>Laser Grid Emitter</label>
+        <description>A small wall mounted laser grid emitter to block paths, built in safety protocols prevent it's activation if lifeforms are detected.</description>
+        <graphicData>
+            <texPath>LaserGrid/LaserGrid</texPath>
+            <graphicClass>Graphic_Multi</graphicClass>
+            <drawOffsetNorth>(0,0,0.9)</drawOffsetNorth>
+            <drawOffsetSouth>(0,0,-0.9)</drawOffsetSouth>
+            <drawOffsetWest>(-0.9,0,0)</drawOffsetWest>
+            <drawOffsetEast>(0.9,0,0)</drawOffsetEast>
+        </graphicData>
+        <uiIconPath>LaserGrid/LaserGrid_UI</uiIconPath>
+        <costList>
+            <Plasteel>100</Plasteel>
+            <ComponentSpacer>5</ComponentSpacer>
+        </costList>
+        <tickerType>Normal</tickerType>
+        <comps>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <basePowerConsumption>1</basePowerConsumption>
+            </li>
+            <li Class="CompProperties_Breakdownable"/>
+            <li Class="CompProperties_Flickable"/>
+            <li Class="WallShields.CompProperties_LaserGridEmitterComp"/>
+        </comps>
+        <constructionSkillPrerequisite>18</constructionSkillPrerequisite>
+        <placeWorkers>
+            <li>Placeworker_AttachedToWall</li>
+            <li>WallShields.PlaceWorker_LaserEmitterNeedsReflector</li>
+        </placeWorkers>
+    </ThingDef>
+
+    <ThingDef ParentName="LaserGridBase">
+        <defName>LaserGridReceiver</defName>
+        <label>Laser Grid Receiver</label>
+        <description>A small wall mounted laser grid receiver reflects back the laser grid via micro mirrors.</description>
+        <graphicData>
+            <texPath>LaserGrid/LaserGrid</texPath>
+            <graphicClass>Graphic_Multi</graphicClass>
+            <drawOffsetNorth>(0,0,0.9)</drawOffsetNorth>
+            <drawOffsetSouth>(0,0,-0.9)</drawOffsetSouth>
+            <drawOffsetWest>(-0.9,0,0)</drawOffsetWest>
+            <drawOffsetEast>(0.9,0,0)</drawOffsetEast>
+        </graphicData>
+        <uiIconPath>LaserGrid/LaserGrid_UI</uiIconPath>
+        <costList>
+            <Gold>200</Gold>
+            <Plasteel>100</Plasteel>
+            <Silver>200</Silver>
+        </costList>
+        <tickerType>Normal</tickerType>
+        <comps>
+        </comps>
+        <constructionSkillPrerequisite>12</constructionSkillPrerequisite>
+    </ThingDef>
+
+    <ThingDef ParentName="WallBuildingBase">
+        <defName>WallShield</defName>
+        <label>wall shield</label>
+        <description>A small wall mounted shield unit.</description>
+        <graphicData>
+            <texPath>WallShield/WallShield</texPath>
+            <graphicClass>Graphic_Multi</graphicClass>
+            <drawOffsetNorth>(0,0,0.9)</drawOffsetNorth>
+            <drawOffsetSouth>(0,0,-0.9)</drawOffsetSouth>
+            <drawOffsetWest>(-0.9,0,0)</drawOffsetWest>
+            <drawOffsetEast>(0.9,0,0)</drawOffsetEast>
+        </graphicData>
+        <thingCategories>
+            <li>BuildingsSecurity</li>
+        </thingCategories>
+        <uiIconPath>WallShield/WallShield_UI</uiIconPath>
+        <costList>
+            <Gold>250</Gold>
+            <Plasteel>200</Plasteel>
+            <Silver>200</Silver>
+            <ComponentSpacer>15</ComponentSpacer>
+        </costList>
+        <statBases>
+            <WorkToBuild>3000</WorkToBuild>
+            <MaxHitPoints>1000</MaxHitPoints>
+            <Flammability>1.0</Flammability>
+            <Mass>35</Mass>
+        </statBases>
+        <tickerType>Normal</tickerType>
+        <researchPrerequisites>
+            <li>ShieldBelt</li>
+        </researchPrerequisites>
+        <drawOffscreen>true</drawOffscreen>
+        <seeThroughFog>true</seeThroughFog>
+        <drawerType>MapMeshAndRealTime</drawerType>
+        <comps>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <basePowerConsumption>1</basePowerConsumption>
+            </li>
+            <li Class="CompProperties_Breakdownable"/>
+            <li Class="CompProperties_Flickable"/>
+            <li Class="WallShields.CompProperties_WallMountedShieldEmitterComp"/>
+        </comps>
+        <designationCategory>Security</designationCategory>
+        <constructionSkillPrerequisite>18</constructionSkillPrerequisite>
+        <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+        <minifiedDef>MinifiedThing</minifiedDef>
+    </ThingDef>
+
+</Defs>

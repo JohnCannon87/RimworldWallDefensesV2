@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+    <ThingDef ParentName="BuildingBase">
+        <defName>WallMountedAATurret</defName>
+        <thingClass>WallShields.WallThingBase</thingClass>
+        <disableImpassableShotOverConfigError>true</disableImpassableShotOverConfigError>
+        <label>AA Turret</label>
+        <description>Anti-Air Turret designed to destroy incoming targets.</description>
+        <graphicData>
+            <texPath>AATurret/AATurret</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <drawSize>(1,1)</drawSize>
+        </graphicData>
+        <thingCategories>
+            <li>BuildingsSecurity</li>
+        </thingCategories>
+        <uiIconPath>AATurret/AATurret_UI</uiIconPath>
+        <costList>
+            <Steel>250</Steel>
+            <ComponentSpacer>5</ComponentSpacer>
+        </costList>
+        <building>
+            <ai_combatDangerous>false</ai_combatDangerous>
+            <isEdifice>false</isEdifice>
+        </building>
+        <statBases>
+            <WorkToBuild>500</WorkToBuild>
+            <MaxHitPoints>1000</MaxHitPoints>
+            <Flammability>1.0</Flammability>
+            <Mass>35</Mass>
+        </statBases>
+        <tickerType>Normal</tickerType>
+        <researchPrerequisites>
+			<li>GunTurrets</li>
+			<li>MultibarrelWeapons</li>
+        </researchPrerequisites>
+        <drawerType>MapMeshAndRealTime</drawerType>
+        <comps>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <basePowerConsumption>500</basePowerConsumption>
+            </li>            
+            <li Class="WallShields.CompProperties_AATurretComp">
+                <texPath>AATurret/AAGun</texPath>
+                <turretTopDrawSize>2.0</turretTopDrawSize>
+                <turretTopOffset>(0, 0.1)</turretTopOffset>   
+            </li>
+            <li Class="CompProperties_Breakdownable"/>
+            <li Class="CompProperties_Flickable"/>
+        </comps>
+        <placeWorkers>
+            <li>WallShields.PlaceWorker_AATurret</li>
+            <li>WallShields.PlaceWorker_WallObject</li>
+        </placeWorkers>
+        <designationCategory>Security</designationCategory>
+        <constructionSkillPrerequisite>12</constructionSkillPrerequisite>
+        <clearBuildingArea>false</clearBuildingArea>
+        <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+        <altitudeLayer>PawnUnused</altitudeLayer>
+        <castEdgeShadows>false</castEdgeShadows>
+        <minifiedDef>MinifiedThing</minifiedDef>
+        <passability>Impassable</passability>
+        <uiIconScale>0.90</uiIconScale>
+    </ThingDef>
+
+    <!-- Dummy turret to draw turret movement but do not fire -->
+    <ThingDef ParentName="BaseWeaponTurret">
+        <defName>AAGun</defName>
+        <label>AA Gun</label>
+        <graphicData>
+            <texPath>AATurret/AAGun</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <drawSize>(1,1)</drawSize>
+        </graphicData>
+        <description>AA Gun designed to shoot down enemy droppods and ships.</description>
+        <statBases>
+            <AccuracyTouch>1.9</AccuracyTouch>
+            <AccuracyShort>1.9</AccuracyShort>
+            <AccuracyMedium>1.9</AccuracyMedium>
+            <AccuracyLong>1.9</AccuracyLong>
+            <RangedWeapon_Cooldown>5000</RangedWeapon_Cooldown>
+            <DeteriorationRate>0</DeteriorationRate>
+            <Mass>40</Mass>
+            <Flammability>0</Flammability>
+        </statBases>
+        <verbs>
+            <li>
+                <verbClass>Verb_Shoot</verbClass>
+                <hasStandardCommand>true</hasStandardCommand>
+                <defaultProjectile>Bullet_SmokeLauncher</defaultProjectile>
+                <forcedMissRadius>3</forcedMissRadius>
+                <warmupTime>5000</warmupTime>
+                <range>55</range>
+                <minRange>55</minRange>
+                <ticksBetweenBurstShots>5000</ticksBetweenBurstShots>
+                <burstShotCount>1</burstShotCount>
+            </li>
+        </verbs>
+    </ThingDef>
+
+</Defs>

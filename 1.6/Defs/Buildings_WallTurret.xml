@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <ThingDef ParentName="Wall" MayRequire="Ludeon.RimWorld.Biotech">
+        <defName>WallTurret</defName>
+        <label>wall turret</label>
+        <description>Laser Cannon designed to fire above the heads of approaching enemies on land.</description>
+        <designationCategory>Security</designationCategory>
+        <uiOrder>2000</uiOrder>
+        <uiIconPath>WallTurret/WallTurret_UI</uiIconPath>
+        <statBases>
+            <MaxHitPoints>700</MaxHitPoints>
+            <WorkToBuild>1000</WorkToBuild>
+            <Flammability>0</Flammability>
+        </statBases>
+        <costStuffCount>40</costStuffCount>
+        <costList>
+            <ComponentIndustrial>5</ComponentIndustrial>
+            <Steel>350</Steel>
+        </costList>
+        <building>
+            <ai_combatDangerous>true</ai_combatDangerous>
+            <turretGunDef>WallTurretGun</turretGunDef>
+            <turretBurstCooldownTime>2.0</turretBurstCooldownTime>    
+            <turretTopDrawSize>1.0</turretTopDrawSize>
+            <turretTopOffset>(0, 0)</turretTopOffset>
+        </building>
+        <stuffCategories Inherit="False">
+            <li>Metallic</li>
+            <li>Stony</li>
+            <li>Woody</li>
+        </stuffCategories>
+        <!-- Non Wall Things From Here-->
+        <thingClass>WallShields.Building_WallTurret</thingClass>
+        <drawerType>MapMeshAndRealTime</drawerType>    
+        <tickerType>Normal</tickerType>
+        <comps Inherit="False">
+            <li Class="CompProperties_Forbiddable"/>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <basePowerConsumption>50</basePowerConsumption>
+            </li>
+            <li Class="CompProperties_Flickable"/>
+            <li Class="CompProperties_Breakdownable"/>
+            <li Class="CompProperties_Stunnable">
+                <affectedDamageDefs>
+                <li>Stun</li>
+                <li>EMP</li>
+                </affectedDamageDefs>
+            </li>
+        </comps>
+        <placeWorkers>
+          <li>PlaceWorker_TurretTop</li>
+          <li>WallShields.PlaceWorker_ShowBeamTurretRadius</li>
+        </placeWorkers>
+    </ThingDef>
+
+    <ThingDef ParentName="Wall" MayRequire="Ludeon.RimWorld.Biotech,Ludeon.RimWorld.Odyssey">
+        <defName>HullTurret</defName>
+        <label>hull turret</label>
+        <description>Laser Cannon designed to fire in the depths of space and on land.</description>
+        <designationCategory>Odyssey</designationCategory>
+        <uiOrder>2000</uiOrder>
+        <uiIconPath>WallTurret/HullTurret_UI</uiIconPath>
+        <graphicData>
+            <texPath>Things/Building/Linked/GravshipHull/GravshipHull_Atlas</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+        <researchPrerequisites>
+            <li>BasicGravtech</li>
+        </researchPrerequisites>
+        <statBases>
+            <MaxHitPoints>700</MaxHitPoints>
+            <WorkToBuild>1000</WorkToBuild>
+            <Flammability>0</Flammability>
+        </statBases>
+        <costStuffCount>40</costStuffCount>
+        <costList>
+            <ComponentIndustrial>5</ComponentIndustrial>
+            <Steel>350</Steel>
+        </costList>
+        <building>
+            <isAirtight>true</isAirtight>
+            <ai_combatDangerous>true</ai_combatDangerous>
+            <turretGunDef>WallTurretGun</turretGunDef>
+            <turretBurstCooldownTime>2.0</turretBurstCooldownTime>    
+            <turretTopDrawSize>1.0</turretTopDrawSize>
+            <turretTopOffset>(0, 0)</turretTopOffset>
+        </building>
+        <terrainAffordanceNeeded>Substructure</terrainAffordanceNeeded>
+        <useStuffTerrainAffordance>false</useStuffTerrainAffordance>
+        <stuffCategories Inherit="False">
+            <li>Metallic</li>
+            <li>Stony</li>
+            <li>Woody</li>
+        </stuffCategories>
+        <!-- Non Wall Things From Here-->
+        <thingClass>WallShields.Building_WallTurret</thingClass>
+        <drawerType>MapMeshAndRealTime</drawerType>    
+        <tickerType>Normal</tickerType>
+        <comps Inherit="False">
+            <li Class="CompProperties_Forbiddable"/>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <basePowerConsumption>50</basePowerConsumption>
+            </li>
+            <li Class="CompProperties_Flickable"/>
+            <li Class="CompProperties_Breakdownable"/>
+            <li Class="CompProperties_Stunnable">
+                <affectedDamageDefs>
+                <li>Stun</li>
+                <li>EMP</li>
+                </affectedDamageDefs>
+            </li>
+        </comps>
+        <placeWorkers>
+          <li>PlaceWorker_TurretTop</li>
+          <li>WallShields.PlaceWorker_ShowBeamTurretRadius</li>
+        </placeWorkers>
+    </ThingDef>
+
+    <ThingDef ParentName="BaseWeaponTurret" MayRequire="Ludeon.RimWorld.Biotech,Ludeon.RimWorld.Odyssey">
+        <defName>WallTurretGun</defName>
+        <label>Wall Turret Gun</label>
+        <graphicData>
+            <texPath>WallTurret/WallTurret</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <drawSize>(1,1)</drawSize>
+        </graphicData>    
+        <altitudeLayer>Silhouettes</altitudeLayer>
+        <description>A ship mounted gamma ray laser which fires a sweeping beam. The narrow, high-energy beam can pierce thick armor and ignite targets.</description>
+        <statBases>
+            <AccuracyTouch>0.70</AccuracyTouch>
+            <AccuracyShort>0.80</AccuracyShort>
+            <AccuracyMedium>0.75</AccuracyMedium>
+            <AccuracyLong>0.65</AccuracyLong>
+            <RangedWeapon_Cooldown>1.80</RangedWeapon_Cooldown>
+            <DeteriorationRate>0</DeteriorationRate>
+            <Mass>40</Mass>
+            <Flammability>0</Flammability>
+        </statBases>
+        <verbs>
+            <li>
+                <verbClass>WallShields.Verb_ShootBeam_UsesEnergy</verbClass>
+                <hasStandardCommand>true</hasStandardCommand>
+                <warmupTime>1.0</warmupTime>
+                <range>39.9</range>
+                <minRange>3.9</minRange>
+                <beamFullWidthRange>3.9</beamFullWidthRange>
+                <burstShotCount>5</burstShotCount>
+                <showBurstShotStats>false</showBurstShotStats>
+                <beamWidth>6</beamWidth>
+                <ticksBetweenBurstShots>22</ticksBetweenBurstShots>
+                <beamDamageDef>PurpleBeam</beamDamageDef>
+                <soundCastTail>GunTail_Medium</soundCastTail>
+                <muzzleFlashScale>9</muzzleFlashScale>
+                <soundCastBeam>BeamGraser_Shooting</soundCastBeam>
+                <beamGroundFleckDef>Fleck_BeamBurn</beamGroundFleckDef>
+                <beamFleckChancePerTick>0.32</beamFleckChancePerTick>
+                <beamMaxDeviation>1.5</beamMaxDeviation>
+                <beamCurvature>0.6</beamCurvature>
+                <beamMoteDef>Mote_PurpleGraserBeamBase</beamMoteDef>
+                <beamEndEffecterDef>GraserBeam_End</beamEndEffecterDef>
+                <beamChanceToStartFire>0.85</beamChanceToStartFire>
+                <beamChanceToAttachFire>0.85</beamChanceToAttachFire>
+                <beamFireSizeRange>0.55~0.85</beamFireSizeRange>
+                <beamLineFleckDef>Fleck_BeamSpark</beamLineFleckDef>
+                <beamStartOffset>0.8</beamStartOffset>
+                <beamLineFleckChanceCurve>
+                <points>
+                    <li>(0, 0)</li>
+                    <li>(0.65, 0.4)</li>
+                    <li>(1, 0.75)</li>
+                </points>
+                </beamLineFleckChanceCurve>
+            </li>
+        </verbs>
+    </ThingDef> 
+
+    <DamageDef Name="Beam">
+        <defName>PurpleBeam</defName>
+        <label>purple beam</label>
+        <workerClass>DamageWorker_AddInjury</workerClass>
+        <externalViolence>true</externalViolence>
+        <deathMessage>{0} has been beamed to death.</deathMessage>
+        <hediff>BeamWound</hediff>
+        <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+        <impactSoundType>Bullet</impactSoundType>
+        <armorCategory>Heat</armorCategory>
+        <overkillPctToDestroyPart>0~0.7</overkillPctToDestroyPart>
+        <isRanged>true</isRanged>
+        <makesAnimalsFlee>true</makesAnimalsFlee>
+        <defaultDamage>40</defaultDamage>
+        <defaultArmorPenetration>0.5</defaultArmorPenetration>
+        <buildingDamageFactorImpassable>0.4</buildingDamageFactorImpassable>
+        <buildingDamageFactorPassable>0.2</buildingDamageFactorPassable>
+    </DamageDef>
+
+    <ThingDef ParentName="MoteBase">
+        <defName>Mote_PurpleGraserBeamBase</defName>
+        <thingClass>MoteDualAttached</thingClass>
+        <altitudeLayer>MoteOverhead</altitudeLayer>
+        <mote>
+        <fadeInTime>0.2</fadeInTime>
+        <fadeOutTime>0.3</fadeOutTime>
+        <solidTime>999999</solidTime>
+        <needsMaintenance>True</needsMaintenance>
+        <rotateTowardsTarget>True</rotateTowardsTarget>
+        <scaleToConnectTargets>True</scaleToConnectTargets>
+        <fadeOutUnmaintained>True</fadeOutUnmaintained>
+        </mote>
+        <drawOffscreen>true</drawOffscreen>
+        <graphicData>
+        <texPath>Things/Mote/PurpleGraserBeam</texPath>
+        <graphicClass>Graphic_MoteWithAgeSecs</graphicClass>
+        <shaderType>MoteBeam</shaderType>
+        <shaderParameters>
+            <_ExtraTexA>/Things/Mote/BeamSecondaryNoise_A</_ExtraTexA>
+            <_ExtraTexB>/Things/Mote/BeamSecondaryNoise_B</_ExtraTexB>
+            <_ScrollSpeedA>-4 </_ScrollSpeedA>
+            <_ScrollSpeedB>3</_ScrollSpeedB>
+            <_Intensity>2</_Intensity>
+        </shaderParameters>
+        </graphicData>
+    </ThingDef>
+
+</Defs>
