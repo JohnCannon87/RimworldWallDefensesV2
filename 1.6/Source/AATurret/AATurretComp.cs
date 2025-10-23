@@ -5,6 +5,7 @@ using System.Linq;
 using RimWorld;
 using Verse;
 using Verse.Sound;
+using UnityEngine;
 
 namespace WallShields
 {
@@ -191,6 +192,7 @@ namespace WallShields
                 {
                     DestroyThing(thing); // always destroy non-pod skyfallers
                 }
+                SimulateTracerTrail(thing);
             }
 
             ammoRemaining = Math.Max(ammoRemaining - targetsToShootAt.Count, 0);
@@ -273,5 +275,43 @@ namespace WallShields
             bool isActive = this.parent.Spawned && this.PowerOn;
             return isActive;
         }
+
+        private void SimulateTracerTrail(Thing target)
+        {
+            var map = parent.Map;
+            if (map == null) return;
+
+            Vector3 start = parent.DrawPos + new Vector3(0f, 0f, 0f);
+            Vector3 end = target.TrueCenter();
+            Vector3 delta = end - start;
+            float distance = delta.magnitude;
+            Vector3 dir = delta.normalized;
+
+            // Randomize the intercept path a little to make it more natural
+            end += new Vector3(Rand.Range(-0.4f, 0.4f), 0f, Rand.Range(-0.4f, 0.4f));
+            int steps = Mathf.CeilToInt(distance / 0.5f);
+
+            for (int i = 0; i < steps; i++)
+            {
+                Vector3 pos = start + dir * (i * 0.5f);
+
+                // Thin smoke trail
+                if (Rand.Chance(0.5f))
+                    FleckMaker.Static(pos, map, FleckDefOf.Smoke, 0.5f);
+
+                // Occasional spark/tracer
+                if (Rand.Chance(0.15f))
+                    FleckMaker.Static(pos, map, FleckDefOf.MicroSparks, 0.6f);
+
+                // Rare glowing pulse to make the line visible in darkness
+                if (Rand.Chance(0.1f))
+                    FleckMaker.Static(pos, map, FleckDefOf.LightningGlow, 0.4f);
+            }
+
+            // Optional small flash at the hit point
+            FleckMaker.ThrowMicroSparks(end, map);
+            FleckMaker.ThrowSmoke(end, map, 1.2f);
+        }
+
     }
 }
