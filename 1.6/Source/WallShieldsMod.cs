@@ -14,9 +14,9 @@ namespace WallShields
         public WallShieldsMod(ModContentPack content) : base(content)
         {
             LongEventHandler.ExecuteWhenFinished(GetSettings);
-            var harmony = new Harmony("com.Arcjc007.WallDefensesV2");
+            var harmony = new Harmony(ResourceBank.ModId);
             harmony.PatchAll();
-            Log.Message("[WallDefensesV2] Patches loaded!");
+            Log.Message($"[{ResourceBank.ModName}] Patches loaded!");
         }
 
         public void GetSettings()
@@ -50,26 +50,26 @@ namespace WallShields
             Widgets.EndScrollView();
         }
 
-        public override string SettingsCategory() => "Wall Defenses";
+        public override string SettingsCategory() => ResourceBank.SettingsCategory;
 
         // ───────────────────────────────
         //  Laser Grid Section
         // ───────────────────────────────
         private void DrawLaserGridSection(Listing_Standard list)
         {
-            DrawSectionHeader(list, "Laser Grid Settings");
+            DrawSectionHeader(list, ResourceBank.LaserGridSettings);
             list.GapLine();
 
-            DrawIntSetting(list, "Max Distance Between Emitter and Reflector",
+            DrawIntSetting(list, ResourceBank.MaxDistance,
                 ref WallShieldsSettings.maxLaserGridDistance, 0, 100);
 
-            DrawIntSetting(list, "Power Per Cell Covered",
+            DrawIntSetting(list, ResourceBank.LaserPowerPerCell,
                 ref WallShieldsSettings.laserPowerPerCell, 0, 100);
 
-            DrawIntSetting(list, "Cell Exponent Multiplication Value",
+            DrawIntSetting(list, ResourceBank.CellExponentValue,
                 ref WallShieldsSettings.laserGridExponent, 1, 20);
 
-            list.Label("Total power = (Cells Covered ^ Cell Exponent) * Power Per Cell");
+            list.Label(ResourceBank.TotalPowerFormula);
 
             list.GapLine();
             list.Gap(12f);
@@ -80,26 +80,25 @@ namespace WallShields
         // ───────────────────────────────
         private void DrawShieldSection(Listing_Standard list)
         {
-            DrawSectionHeader(list, "Shield Settings");
+            DrawSectionHeader(list, ResourceBank.ShieldSettings);
             list.GapLine();
 
-            DrawIntSetting(list, "Power Per Cell Covered",
+            DrawIntSetting(list, ResourceBank.ShieldPowerPerCell,
                 ref WallShieldsSettings.shieldPowerPerCell, 0, 100);
 
-            DrawIntSetting(list, "Cell Exponent Multiplication Value",
+            DrawIntSetting(list, ResourceBank.ShieldCellExponent,
                 ref WallShieldsSettings.shieldCellExponent, 1, 20);
 
-            list.Label("Total power = (Cells Covered ^ Cell Exponent) * Power Per Cell");
+            list.Label(ResourceBank.TotalPowerFormula);
+            list.Label(ResourceBank.ShieldRecommendation);
 
-            list.Label("HIGHLY recommend only having the intercept cost on with a low power draw or vice versa");
-
-            DrawFloatSetting(list, "Shield Intercept Cost Wd",
+            DrawFloatSetting(list, ResourceBank.ShieldInterceptCostWd,
                 ref WallShieldsSettings.shieldInterceptCostWd, 0, 100);
 
-            DrawIntSetting(list, "Percentage Of Damage Drained",
+            DrawIntSetting(list, ResourceBank.PercentageOfDamageDrained,
                 ref WallShieldsSettings.percentageOfDamageDrained, 0, 100);
 
-            DrawIntSetting(list, "Shield Cooldown Ticks, 0 disables breaking feature, Roughly 60 ticks to 1 second",
+            DrawIntSetting(list, ResourceBank.ShieldCooldownTicks,
                 ref WallShieldsSettings.shieldCooldownTicks, 0, 5000);
 
             list.GapLine();
@@ -111,28 +110,28 @@ namespace WallShields
         // ───────────────────────────────
         private void DrawAATurretSection(Listing_Standard list)
         {
-            DrawSectionHeader(list, "AA Turret Settings");
+            DrawSectionHeader(list, ResourceBank.AATurretSettings);
             list.GapLine();
 
-            DrawIntSetting(list, "Protection Range (max 56)",
+            DrawIntSetting(list, ResourceBank.ProtectionRange,
                 ref WallShieldsSettings.protectionRange, 1, 56);
 
-            DrawIntSetting(list, "Reload Speed (ticks)",
+            DrawIntSetting(list, ResourceBank.ReloadSpeed,
                 ref WallShieldsSettings.reloadSpeed, 1, 240);
 
-            DrawIntSetting(list, "Ammo Count",
+            DrawIntSetting(list, ResourceBank.AmmoCount,
                 ref WallShieldsSettings.ammoCount, 1, 20);
 
-            list.Label("Note: Multiple turrets can heavily damage or destroy droppods in range.");
+            list.Label(ResourceBank.NoteMultipleTurrets);
             list.Gap(6f);
 
-            DrawIntSetting(list, "Chance To Completely Destroy Droppod (%)",
+            DrawIntSetting(list, ResourceBank.ChanceDestroyDropPod,
                 ref WallShieldsSettings.chanceOfCompletelyDestroyingDropPod, 0, 100);
 
-            DrawFloatSetting(list, "Damage To Droppod Occupant Per Hit",
+            DrawFloatSetting(list, ResourceBank.DamageToDropPod,
                 ref WallShieldsSettings.bulletDamage, 1, 100);
 
-            DrawIntSetting(list, "Max Hits To Droppod Occupant",
+            DrawIntSetting(list, ResourceBank.MaxHitsToDropPod,
                 ref WallShieldsSettings.maxShotsAtDropPodOccupant, 1, 100);
 
             list.GapLine();
@@ -144,13 +143,13 @@ namespace WallShields
         // ───────────────────────────────
         private void DrawWallTurretSection(Listing_Standard list)
         {
-            DrawSectionHeader(list, "Wall Turret Settings");
+            DrawSectionHeader(list, ResourceBank.WallTurretSettings);
             list.GapLine();
 
-            DrawIntSetting(list, "Battery Drain Per Beam Fired",
+            DrawIntSetting(list, ResourceBank.BatteryDrain,
                 ref WallShieldsSettings.laserCannonDrain, 1, 100);
 
-            DrawFloatSetting(list, "Wall Turret Beam - Damage per Shot",
+            DrawFloatSetting(list, ResourceBank.LaserDamage,
                 ref WallShieldsSettings.laserCannonDamage, 1f, 200f);
 
             list.GapLine();
@@ -158,7 +157,7 @@ namespace WallShields
         }
 
         // ───────────────────────────────
-        //  Shared Input Helpers
+        //  Shared Helpers
         // ───────────────────────────────
         private void DrawFloatSetting(Listing_Standard list, string label, ref float value, float min, float max)
         {
@@ -182,25 +181,19 @@ namespace WallShields
             list.Gap(6f);
         }
 
-        // ───────────────────────────────
-        //  Section Header Helper
-        // ───────────────────────────────
         private void DrawSectionHeader(Listing_Standard list, string title)
         {
-            Rect headerRect = list.GetRect(30f); // height of the color band
+            Rect headerRect = list.GetRect(30f);
             Color oldColor = GUI.color;
 
-            // Deep blue background
             GUI.color = new Color(0.1f, 0.2f, 0.45f, 0.85f);
             Widgets.DrawBoxSolid(headerRect, GUI.color);
 
-            // Header text
             Text.Anchor = TextAnchor.MiddleCenter;
             Text.Font = GameFont.Medium;
             GUI.color = Color.white;
             Widgets.Label(headerRect, title);
 
-            // Reset text + color
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
             GUI.color = oldColor;

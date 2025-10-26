@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- General -->
+  <WS_SettingsCategory>Wall Defenses</WS_SettingsCategory>
+  <WS_NeedsWall>Can only be placed on a wall</WS_NeedsWall>
+  <WS_WallAlreadyOccupied>Space already occupied</WS_WallAlreadyOccupied>
+  <WS_NoReflectorFound>No Laser Grid Reflector Found In Range</WS_NoReflectorFound>
+
+  <!-- Section Headers -->
+  <WS_LaserGridSettings>Laser Grid Settings</WS_LaserGridSettings>
+  <WS_ShieldSettings>Shield Settings</WS_ShieldSettings>
+  <WS_AATurretSettings>AA Turret Settings</WS_AATurretSettings>
+  <WS_WallTurretSettings>Wall Turret Settings</WS_WallTurretSettings>
+
+  <!-- Laser Grid -->
+  <WS_MaxDistance>Max Distance Between Emitter and Reflector</WS_MaxDistance>
+  <WS_LaserPowerPerCell>Power Per Cell Covered</WS_LaserPowerPerCell>
+  <WS_CellExponentValue>Cell Exponent Multiplication Value</WS_CellExponentValue>
+  <WS_TotalPowerFormula>Total power = (Cells Covered ^ Cell Exponent) * Power Per Cell</WS_TotalPowerFormula>
+
+  <!-- Shield -->
+  <WS_ShieldPowerPerCell>Power Per Cell Covered</WS_ShieldPowerPerCell>
+  <WS_ShieldCellExponent>Cell Exponent Multiplication Value</WS_ShieldCellExponent>
+  <WS_ShieldInterceptCostWd>Shield Intercept Cost Wd</WS_ShieldInterceptCostWd>
+  <WS_PercentageOfDamageDrained>Percentage Of Damage Drained</WS_PercentageOfDamageDrained>
+  <WS_ShieldCooldownTicks>Shield Cooldown Ticks (0 disables breaking feature, roughly 60 ticks = 1 second)</WS_ShieldCooldownTicks>
+  <WS_ShieldRecommendation>HIGHLY recommend only having the intercept cost on with a low power draw or vice versa</WS_ShieldRecommendation>
+
+  <!-- AA Turret -->
+  <WS_ProtectionRange>Protection Range (max 56)</WS_ProtectionRange>
+  <WS_ReloadSpeed>Reload Speed (ticks)</WS_ReloadSpeed>
+  <WS_AmmoCount>Ammo Count</WS_AmmoCount>
+  <WS_NoteMultipleTurrets>Note: Multiple turrets can heavily damage or destroy drop pods in range.</WS_NoteMultipleTurrets>
+  <WS_ChanceDestroyDropPod>Chance To Completely Destroy Drop Pod (%)</WS_ChanceDestroyDropPod>
+  <WS_DamageToDropPod>Damage To Drop Pod Occupant Per Hit</WS_DamageToDropPod>
+  <WS_MaxHitsToDropPod>Max Hits To Drop Pod Occupant</WS_MaxHitsToDropPod>
+
+  <!-- Wall Turret -->
+  <WS_BatteryDrain>Battery Drain Per Beam Fired</WS_BatteryDrain>
+  <WS_LaserDamage>Wall Turret Beam - Damage per Shot</WS_LaserDamage>
+
+  <!-- LaserGridEmitterComp -->
+  <WS_LaserGridErrorNoReceiver>Error: No matching receiver found within distance of {0}!</WS_LaserGridErrorNoReceiver>
+  <WS_LaserGridPowerUsage>Power when active</WS_LaserGridPowerUsage>
+  <WS_ManualModeOn>Turn on Manual Mode</WS_ManualModeOn>
+  <WS_ManualModeOff>Turn off Manual Mode</WS_ManualModeOff>
+  <WS_EnableGrid>Enable Shield Grid</WS_EnableGrid>
+  <WS_DisableGrid>Disable Shield Grid</WS_DisableGrid>
+
+  <!-- WallMountedShieldEmitterComp -->
+  <WS_ShieldSelectRegion>Select Region to Shield</WS_ShieldSelectRegion>
+  <WS_ShieldChangeColor>Change Shield Color</WS_ShieldChangeColor>
+  <WS_ShieldChangeColorDesc>Change the color of the wall shield's visual effect.</WS_ShieldChangeColorDesc>
+  <WS_ShieldOverloadMessage>Shield Generator overloaded and shut down!</WS_ShieldOverloadMessage>
+
+  <WS_ShieldStatusCooldown>&lt;color=#FF8800&gt;COOLDOWN&lt;/color&gt; ({0}s remaining)</WS_ShieldStatusCooldown>
+  <WS_ShieldStatusOffline>&lt;color=#FF5555&gt;Offline (No Power)&lt;/color&gt;</WS_ShieldStatusOffline>
+  <WS_ShieldStatusIdle>&lt;color=#BBBBBB&gt;Idle&lt;/color&gt;</WS_ShieldStatusIdle>
+  <WS_ShieldStatusActive>&lt;color=#00FFAA&gt;Active&lt;/color&gt;</WS_ShieldStatusActive>
+
+  <WS_ShieldRegionInfo>Area: {0} ({1} cells)</WS_ShieldRegionInfo>
+  <WS_ShieldRegionNotSelected>Area: &lt;color=#FF5555&gt;Not selected&lt;/color&gt;</WS_ShieldRegionNotSelected>
+  <WS_ShieldPowerUse>Power Use: {0} W</WS_ShieldPowerUse>
+  <WS_ShieldPowerOff>Power: Off</WS_ShieldPowerOff>
+  <WS_ShieldOverloadDisabled>Overload: &lt;color=#88FF88&gt;Disabled&lt;/color&gt;</WS_ShieldOverloadDisabled>
+  <WS_ShieldOverloadCooldown>Overload Cooldown: {0}s</WS_ShieldOverloadCooldown>
+
+</LanguageData>

@@ -94,7 +94,7 @@ namespace WallShields
             yield return new Command_Action
             {
                 action = SelectRegion,
-                defaultLabel = "Select Region to Shield",
+                defaultLabel = ResourceBank.ShieldSelectRegion,
                 icon = ContentFinder<Texture2D>.Get("UI/SelectRegion", true),
                 activateSound = SoundDef.Named("Click")
             };
@@ -102,8 +102,8 @@ namespace WallShields
             yield return new Command_Action
             {
                 action = OpenColorPicker,
-                defaultLabel = "Change Shield Color",
-                defaultDesc = "Change the color of the wall shield’s visual effect.",
+                defaultLabel = ResourceBank.ShieldChangeColor,
+                defaultDesc = ResourceBank.ShieldChangeColorDesc,
                 icon = ContentFinder<Texture2D>.Get("UI/Commands/ChangeColor", true),
                 activateSound = SoundDef.Named("Click")
             };
@@ -232,14 +232,13 @@ namespace WallShields
         private void TriggerShieldFailure()
         {
             if (WallShieldsSettings.shieldCooldownTicks == 0)
-                return; // disabled
+                return;
 
             try
             {
                 shieldCooldownTicksRemaining = WallShieldsSettings.shieldCooldownTicks;
                 shieldActiveTimer = 0;
 
-                // visual overload effect
                 if (!shieldedCells.NullOrEmpty())
                 {
                     foreach (var cell in shieldedCells)
@@ -251,7 +250,6 @@ namespace WallShields
                     }
                 }
 
-                // slight EMP-like explosion
                 GenExplosion.DoExplosion(
                     parent.Position,
                     parent.Map,
@@ -263,13 +261,14 @@ namespace WallShields
                     explosionSound: HitSoundDef
                 );
 
-                Messages.Message("Shield Generator overloaded and shut down!", parent, MessageTypeDefOf.NegativeEvent);
+                Messages.Message(ResourceBank.ShieldOverloadMessage, parent, MessageTypeDefOf.NegativeEvent);
             }
             catch (Exception ex)
             {
                 Log.Error($"[WallShields] TriggerShieldFailure exception: {ex}");
             }
         }
+
 
         // ───────────────────────────────
         //  Drawing + Mesh
@@ -432,43 +431,57 @@ namespace WallShields
 
         public override string CompInspectStringExtra()
         {
-            string status;
-
+            TaggedString status;
             if (IsOnCooldown)
             {
-                float secondsLeft = shieldCooldownTicksRemaining / 60f; // ticks → seconds
-                status = $"<color=#FF8800>COOLDOWN</color> ({secondsLeft:F1}s remaining)";
+                float secondsLeft = shieldCooldownTicksRemaining / 60f;
+                status = ResourceBank.ShieldStatusCooldownKey.Translate(secondsLeft.ToString("F1"));
             }
             else if (!PowerOn)
             {
-                status = "<color=#FF5555>Offline (No Power)</color>";
+                status = ResourceBank.ShieldStatusOfflineKey.Translate();
             }
             else if (!IsThereAThreat())
             {
-                status = "<color=#BBBBBB>Idle</color>";
+                status = ResourceBank.ShieldStatusIdleKey.Translate();
             }
             else
             {
-                status = "<color=#00FFAA>Active</color>";
+                status = ResourceBank.ShieldStatusActiveKey.Translate();
             }
 
-            string regionInfo = selectedArea != null
-                ? $"Area: {selectedArea.Label} ({shieldedCells?.Count ?? 0} cells)"
-                : "Area: <color=#FF5555>Not selected</color>";
+            string regionInfo;
+            if (selectedArea != null)
+            {
+                int cellCount = shieldedCells != null ? shieldedCells.Count : 0;
+                regionInfo = ResourceBank.ShieldRegionInfoKey.Translate(selectedArea.Label, cellCount).Resolve();
+            }
+            else
+            {
+                regionInfo = ResourceBank.ShieldRegionNotSelectedKey.Translate().Resolve();
+            }
 
-            string powerInfo = PowerOn
-                ? $"Power Use: {Math.Abs(PowerUsage):F0} W"
-                : "Power: Off";
+            string powerInfo;
+            if (PowerOn)
+            {
+                powerInfo = ResourceBank.ShieldPowerUseKey.Translate(Math.Abs(PowerUsage).ToString("F0")).Resolve();
+            }
+            else
+            {
+                powerInfo = ResourceBank.ShieldPowerOffKey.Translate().Resolve();
+            }
 
-            string cooldownInfo = WallShieldsSettings.shieldCooldownTicks == 0
-                ? "Overload: <color=#88FF88>Disabled</color>"
-                : $"Overload Cooldown: {WallShieldsSettings.shieldCooldownTicks / 60f:F1}s";
+            string cooldownInfo;
+            if (WallShieldsSettings.shieldCooldownTicks == 0)
+            {
+                cooldownInfo = ResourceBank.ShieldOverloadDisabledKey.Translate().Resolve();
+            }
+            else
+            {
+                cooldownInfo = ResourceBank.ShieldOverloadCooldownKey.Translate((WallShieldsSettings.shieldCooldownTicks / 60f).ToString("F1")).Resolve();
+            }
 
-            return
-                $"Status: {status}\n" +
-                $"{regionInfo}\n" +
-                $"{powerInfo}\n" +
-                $"{cooldownInfo}";
+            return $"{status}\n{regionInfo}\n{powerInfo}\n{cooldownInfo}";
         }
     }
 }
